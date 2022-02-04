@@ -8,6 +8,8 @@
     const handleResponse = async (response) => {
       const content = document.querySelector('#content');
 
+      const contentType = response.headers.get('Content-Type');
+
       switch(response.status) {
         case 200:
           content.innerHTML = `<b>success</b>`;
@@ -39,7 +41,25 @@
       }
 
       const resText = await response.text();
-      content.innerHTML += `<p>${resText}</p>`
+      console.log(resText);
+
+      if(contentType === 'text/xml') {
+        const parsedResponse = new window.DOMParser().parseFromString(resText, 'text/xml');
+        content.innerHTML += `<p>message: ${parsedResponse.querySelector('message').textContent}</p>`;
+
+        if(parsedResponse.querySelector('id')) {
+          content.innerHTML += `<p>id: ${parsedResponse.querySelector('id').textContent}</p>`;
+        }
+      }
+      else {
+        console.log(resText);
+        const parsedResponse = JSON.parse(resText);
+        content.innerHTML += `<p>message: ${parsedResponse.message}</p>`;
+
+        if(parsedResponse.id) {
+          content.innerHTML += `<p>id: ${parsedResponse.id}</p>`;
+        }
+      }
     };
 
     const sendFetchRequest = async (url, acceptedType) => {

@@ -1,4 +1,4 @@
-const respond = (request, response, status, content, type) => {
+const respond = (request, response, content, status, type) => {
     response.writeHead(status, { 'content-type': type });
     response.write(content);
     response.end();
@@ -14,7 +14,7 @@ const success = (request, response, acceptedTypes) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
         </responses>
         `;
 
@@ -41,7 +41,7 @@ const badRequest = (request, response, acceptedTypes, params) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;
@@ -69,7 +69,7 @@ const unauthorized = (request, response, acceptedTypes, params) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;
@@ -93,7 +93,7 @@ const forbidden = (request, response, params, acceptedTypes) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;
@@ -117,7 +117,7 @@ const internalError = (request, response, params, acceptedTypes) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;
@@ -141,7 +141,7 @@ const notImplemented = (request, response, params, acceptedTypes) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;
@@ -165,7 +165,7 @@ const notFound = (request, response, params, acceptedTypes) => {
     if(acceptedTypes[0] === 'text/xml') {
         let responseXML = `
         <responses>
-            <name>${object.message}</name>
+            <message>${object.message}</message>
             <id>${object.id}</id>
         </responses>
         `;

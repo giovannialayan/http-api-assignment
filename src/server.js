@@ -26,10 +26,10 @@ const onRequest = (request, response) => {
   const acceptedTypes = request.headers.accept.split(',');
 
   if(urlStruct[parsedUrl.pathname]) {
-    urlStruct[parsedUrl.pathname](request, response, params, acceptedTypes);
+    urlStruct[parsedUrl.pathname](request, response, acceptedTypes, params);
   }
   else {
-    urlStruct.notFound(request, response, params, acceptedTypes);
+    urlStruct.notFound(request, response, acceptedTypes, params);
   }
 };
 
