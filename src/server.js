@@ -14,25 +14,22 @@ const urlStruct = {
   '/unauthorized': responses.unauthorized,
   '/forbidden': responses.forbidden,
   '/internal': responses.internalError,
-  '/notimplemented': responses.notImplemented,
+  '/notImplemented': responses.notImplemented,
   notFound: responses.notFound,
 };
 
 const onRequest = (request, response) => {
-  console.log(request);
-  
   const parsedUrl = url.parse(request.url);
   const params = query.parse(parsedUrl.query);
   const acceptedTypes = request.headers.accept.split(',');
 
-  if(urlStruct[parsedUrl.pathname]) {
+  if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response, acceptedTypes, params);
-  }
-  else {
+  } else {
     urlStruct.notFound(request, response, acceptedTypes, params);
   }
 };
 
 http.createServer(onRequest).listen(port, () => {
-    console.log(`listening on 127.0.0.1:${port}`);
+  console.log(`listening on 127.0.0.1:${port}`);
 });
